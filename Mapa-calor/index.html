@@ -1,0 +1,189 @@
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Beauty Style App</title>
+
+  <!-- Bootstrap & Estilos -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "sprd0gs4jp");
+</script>
+
+  <!-- Hotjar Tracking Code -->
+  <script>
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:6481392,hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+  </script>
+</head>
+<body>
+
+<!-- Pantalla de carga -->
+<div id="pantalla-carga">
+  <div class="loader"></div>
+  <p class="text-white mt-3">Cargando app...</p>
+</div>
+
+<!-- APP -->
+<div class="phone-container shadow-lg" style="display: none;">
+
+  <!-- INICIO -->
+  <div id="pantalla-inicio" class="pantalla activa text-center">
+    <img src="https://cdn-icons-png.flaticon.com/512/1995/1995574.png" class="img-icon mt-3" alt="logo">
+    <h2 class="text-primary fw-bold">¡Bienvenida a Mi Imagen Ideal!</h2>
+    <p class="text-muted">Crea tu perfil y descubre tu estilo ideal</p>
+    <input class="form-control mb-2" placeholder="Correo" type="email" id="email">
+    <input class="form-control mb-3" placeholder="Contraseña" type="password" id="password">
+    <button class="btn btn-primary w-100" onclick="validarInicio()">
+      <i class="bi bi-box-arrow-in-right me-2"></i>Iniciar sesión
+    </button>
+    <p class="text-danger mt-2" id="mensaje-error"></p>
+  </div>
+
+  <!-- SUBIR IMAGEN -->
+  <div id="pantalla-registro" class="pantalla text-center p-3">
+    <h3 class="text-primary fw-bold mb-3">
+      <i class="bi bi-camera-fill me-2"></i>Sube tu Imagen
+    </h3>
+    <div class="drop-zone">
+      <i class="bi bi-cloud-upload display-4 text-secondary"></i>
+      <p class="text-muted">Selecciona una foto para personalizar tu estilo</p>
+      <input type="file" class="form-control mt-2" onchange="mostrarImagen(event)">
+    </div>
+    <img id="preview-imagen" class="img-fluid rounded shadow mt-3 d-none" style="max-height: 200px;">
+    <button class="btn btn-success w-100 mt-3" onclick="mostrarPantalla('pantalla-categorias')">
+      <i class="bi bi-arrow-right-circle me-2"></i>Continuar
+    </button>
+  </div>
+
+  <!-- ESTILOS -->
+  <div id="pantalla-categorias" class="pantalla text-center p-3">
+    <h3 class="text-warning fw-bold mb-3">
+      <i class="bi bi-stars me-2"></i>¿Qué estilo prefieres?
+    </h3>
+    <div class="row g-3">
+      <div class="col-12">
+        <div class="card estilo-opcion shadow-sm" onclick="seleccionarEstilo('Cabello largo')">
+          <div class="card-body text-start">
+            <i class="bi bi-person-fill-up text-primary fs-3 me-2"></i> Cabello largo
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="card estilo-opcion shadow-sm" onclick="seleccionarEstilo('Cabello corto')">
+          <div class="card-body text-start">
+            <i class="bi bi-person-fill-down text-danger fs-3 me-2"></i> Cabello corto
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="card estilo-opcion shadow-sm" onclick="seleccionarEstilo('Rizado')">
+          <div class="card-body text-start">
+            <i class="bi bi-person-arms-up text-success fs-3 me-2"></i> Rizado
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULTADO -->
+  <div id="pantalla-final" class="pantalla text-center p-3">
+    <div class="card shadow-sm p-3">
+      <h3 class="text-success fw-bold">¡Este look es para ti!</h3>
+      <p class="text-muted">Según tus elecciones, este estilo se adapta mejor a ti.</p>
+      <img src="https://via.placeholder.com/250x250.png?text=Tu+Estilo" class="img-fluid rounded shadow mb-3">
+      <button class="btn btn-dark w-100 mb-2" onclick="mostrarPantalla('pantalla-perfil')">
+        <i class="bi bi-person-circle me-2"></i>Ir a Perfil
+      </button>
+    </div>
+  </div>
+
+  <!-- PERFIL -->
+  <div id="pantalla-perfil" class="pantalla text-center p-3">
+    <h3 class="text-primary">Mi Perfil</h3>
+    <i class="bi bi-person-circle display-4 text-primary"></i>
+    <p class="mt-2"><strong>Correo:</strong> <span id="correoGuardado"></span></p>
+    <p><strong>Estilo:</strong> <span id="estiloGuardado"></span></p>
+    <button class="btn btn-outline-secondary w-100 mt-2" onclick="mostrarPantalla('pantalla-tips')">
+      <i class="bi bi-lightbulb me-2"></i>Ver Consejos
+    </button>
+    <button class="btn btn-outline-success w-100 mt-2" onclick="mostrarPantalla('pantalla-favoritos')">
+      <i class="bi bi-heart me-2"></i>Favoritos
+    </button>
+    <button class="btn btn-outline-info w-100 mt-2" onclick="mostrarPantalla('pantalla-galeria')">
+      <i class="bi bi-images me-2"></i>Galería
+    </button>
+    <button class="btn btn-outline-dark mt-2 w-100" onclick="mostrarPantalla('pantalla-inicio')">
+      <i class="bi bi-box-arrow-left me-2"></i>Cerrar sesión
+    </button>
+  </div>
+
+  <!-- CONSEJOS -->
+  <div id="pantalla-tips" class="pantalla text-center p-3">
+    <h4 class="text-info">Consejos de Belleza</h4>
+    <ul class="list-group text-start mt-3">
+      <li class="list-group-item"><i class="bi bi-brush"></i> Hidrata tu cabello 2 veces por semana</li>
+      <li class="list-group-item"><i class="bi bi-droplet-half"></i> Usa aceites naturales</li>
+      <li class="list-group-item"><i class="bi bi-scissors"></i> Recorta las puntas cada 2 meses</li>
+    </ul>
+    <button class="btn btn-info w-100 mt-3" onclick="mostrarPantalla('pantalla-perfil')">
+      <i class="bi bi-arrow-left me-2"></i>Volver al Perfil
+    </button>
+  </div>
+
+  <!-- FAVORITOS -->
+  <div id="pantalla-favoritos" class="pantalla text-center p-3">
+    <h4 class="text-danger"><i class="bi bi-heart-fill"></i> Mis Favoritos</h4>
+    <p class="text-muted">Aquí se mostrarán tus estilos guardados.</p>
+    <button class="btn btn-secondary w-100 mt-3" onclick="mostrarPantalla('pantalla-perfil')">
+      <i class="bi bi-arrow-left me-2"></i>Volver al Perfil
+    </button>
+  </div>
+
+  <!-- GALERÍA -->
+  <div id="pantalla-galeria" class="pantalla text-center p-3">
+    <h4 class="text-success"><i class="bi bi-images"></i> Galería</h4>
+    <p class="text-muted">Explora estilos y tendencias.</p>
+    <button class="btn btn-secondary w-100 mt-3" onclick="mostrarPantalla('pantalla-perfil')">
+      <i class="bi bi-arrow-left me-2"></i>Volver al Perfil
+    </button>
+  </div>
+
+  <!-- Barra de navegación tipo footer -->
+  <nav class="nav-footer d-flex justify-content-around align-items-center">
+    <button class="nav-btn active" data-target="pantalla-inicio" aria-label="Inicio">
+      <i class="bi bi-house-door-fill fs-4"></i>
+      <small>Inicio</small>
+    </button>
+    <button class="nav-btn" data-target="pantalla-galeria" aria-label="Galería">
+      <i class="bi bi-images fs-4"></i>
+      <small>Galería</small>
+    </button>
+    <button class="nav-btn" data-target="pantalla-favoritos" aria-label="Favoritos">
+      <i class="bi bi-heart-fill fs-4"></i>
+      <small>Favoritos</small>
+    </button>
+    <button class="nav-btn" data-target="pantalla-perfil" aria-label="Perfil">
+      <i class="bi bi-person-circle fs-4"></i>
+      <small>Perfil</small>
+    </button>
+  </nav>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
